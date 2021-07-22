@@ -24,7 +24,7 @@ class User {
     avatar?: string;
 
     @CreateDateColumn()
-    create_At: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;

@@ -4,10 +4,12 @@ import 'express-async-errors';
 import cors from 'cors';
 import routes from './routes/index';
 import AppError from '../errors/AppError';
-import '@shared/typeorm/index';
+import DBManger from '@shared/database/DBManger';
+import '@shared/database/index';
 import { errors } from 'celebrate';
 
 const app = express();
+app.use(DBManger.setDatabaseToRequest);
 app.use(cors());
 app.use(express.json());
 app.use(routes);
@@ -27,8 +29,9 @@ app.use(
             });
         } else {
             return response.status(500).json({
-                status: 'Error',
-                message: 'Internal server error',
+                // status: 'Error',
+                // message: 'Internal server error',
+                ...error,
             });
         }
     },
