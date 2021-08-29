@@ -6,10 +6,7 @@ import UpdateProductService from '../services/UpdateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 
 export default class ProductController {
-    public async index(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
+    public async index(request: Request, response: Response): Promise<Response> {
         const listProducts = new ListProductService();
 
         const products = await listProducts.execute();
@@ -26,32 +23,28 @@ export default class ProductController {
         return response.json(product);
     }
 
-    public async create(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
+    public async create(request: Request, response: Response): Promise<Response> {
         // const { name, price, quantity } = request.body;
 
         const createProduct = new CreateProductService();
-        const product = await createProduct.execute({ ...request.body });
+        const product = await createProduct.execute({
+            ...request.body,
+        });
 
         return response.json(product);
     }
 
-    public async update(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
+    public async update(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
         const updateService = new UpdateProductService();
-        const product = await updateService.execute({ id, ...request.body });
+        const product = await updateService.execute({
+            id,
+            ...request.body,
+        });
         return response.json(product);
     }
 
-    public async delete(
-        request: Request,
-        response: Response,
-    ): Promise<Response> {
+    public async delete(request: Request, response: Response): Promise<Response> {
         const { id } = request.params;
         const deleteProduct = new DeleteProductService();
         deleteProduct.execute({ id });
